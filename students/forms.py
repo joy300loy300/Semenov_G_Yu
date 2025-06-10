@@ -1,5 +1,5 @@
 from django import forms
-from .models import Group, Student, Grade
+from .models import Group, Student, Grade, Subject
 
 
 class GroupForm(forms.ModelForm):
@@ -18,3 +18,11 @@ class GradeForm(forms.ModelForm):
     class Meta:
         model = Grade
         fields = ['student', 'subject', 'grade']
+
+
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ['name']
+        labels = {'name': 'Название предмета'}
+

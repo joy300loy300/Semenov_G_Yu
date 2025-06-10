@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Group, Student, Grade
-from .forms import GroupForm, StudentForm, GradeForm
+from .models import Group, Student, Grade, Subject
+from .forms import GroupForm, StudentForm, GradeForm, SubjectForm
 
 
 def index(request):
@@ -113,3 +113,39 @@ def grade_delete(request, pk):
         grade.delete()
         return redirect('grade_list')
     return render(request, 'grades/confirm_delete.html', {'object': grade})
+
+
+def subject_list(request):
+    subjects = Subject.objects.all()
+    return render(request, 'subjects/list.html', {'subjects': subjects})
+
+
+def subject_create(request):
+    if request.method == 'POST':
+        form = SubjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('subject_list')
+    else:
+        form = SubjectForm()
+    return render(request, 'subjects/form.html', {'form': form, 'title': 'Добавить предмет'})
+
+
+def subject_update(request, pk):
+    subject = get_object_or_404(Subject, pk=pk)
+    if request.method == 'POST':
+        form = SubjectForm(request.POST, instance=subject)
+        if form.is_valid():
+            form.save()
+            return redirect('subject_list')
+    else:
+        form = SubjectForm(instance=subject)
+    return render(request, 'subjects/form.html', {'form': form, 'title': 'Изменить предмет'})
+
+
+def subject_delete(request, pk):
+    subject = get_object_or_404(Subject, pk=pk)
+    if request.method == 'POST':
+        subject.delete()
+        return redirect('subject_list')
+    return render(request, 'subjects/confirm_delete.html', {'subject': subject})

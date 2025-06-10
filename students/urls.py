@@ -18,4 +18,9 @@ urlpatterns = [
     path('grades/new/', views.grade_create, name='grade_create'),
     path('grades/<int:pk>/edit/', views.grade_update, name='grade_update'),
     path('grades/<int:pk>/delete/', views.grade_delete, name='grade_delete'),
+
+    path('subjects/', views.subject_list, name='subject_list'),
+    path('subjects/create/', views.subject_create, name='subject_create'),
+    path('subjects/<int:pk>/update/', views.subject_update, name='subject_update'),
+    path('subjects/<int:pk>/delete/', views.subject_delete, name='subject_delete'),
 ]
