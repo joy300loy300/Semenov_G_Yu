@@ -1,0 +1,6 @@
+<h1>Удалить "{{ object }}"?</h1>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Подтвердить удаление</button>
+  <a href="{% url 'group_list' %}">Отмена</a>
+</form>

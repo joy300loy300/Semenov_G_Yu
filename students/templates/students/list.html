@@ -1,0 +1,12 @@
+<h1>Студенты</h1>
+<ul>
+  {% for student in students %}
+    <li>
+      {{ student.name }} ({{ student.group.name }})
+      — средний балл: {{ student.get_average_grade }}
+      | <a href="{% url 'student_update' student.pk %}">Изменить</a>
+      | <a href="{% url 'student_delete' student.pk %}">Удалить</a>
+    </li>
+  {% endfor %}
+</ul>
+<a href="{% url 'student_create' %}">Добавить студента</a>

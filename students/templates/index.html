@@ -1,0 +1,40 @@
+{% load dict_filters %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Панель управления</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <h1 class="text-center mb-4">Панель управления</h1>
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-4 mb-3">
+            <a href="{% url 'group_list' %}" class="btn btn-primary w-100 btn-lg">Группы</a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="{% url 'student_list' %}" class="btn btn-success w-100 btn-lg">Студенты</a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="{% url 'grade_list' %}" class="btn btn-warning w-100 btn-lg">Оценки</a>
+        </div>
+    </div>
+
+    <h2 class="mb-3">Статистика по группам</h2>
+    {% for stat in group_stats %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ stat.group.name }}</h5>
+          <p>Средний балл по всем предметам: <strong>{{ stat.overall_average }}</strong></p>
+          <ul>
+            {% for subject in subjects %}
+              <li>{{ subject }}: {{ stat.subject_averages|dict_get:subject }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+</body>
+</html>
