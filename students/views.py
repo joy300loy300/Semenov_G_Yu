@@ -5,7 +5,7 @@ from .forms import GroupForm, StudentForm, GradeForm, SubjectForm
 
 def index(request):
     groups = Group.objects.all()
-    subjects = Grade.objects.values_list('subject', flat=True).distinct()
+    subjects = Subject.objects.all()
 
     group_stats = []
     for group in groups:
